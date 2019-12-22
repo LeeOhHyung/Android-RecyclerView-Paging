@@ -5,7 +5,10 @@ package kr.ohyung.paging.di
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import kr.ohyung.paging.BuildConfig
+import kr.ohyung.paging.adapter.PostAdapter
 import kr.ohyung.paging.main.MainViewModel
+import kr.ohyung.paging.model.remote.JsonPlaceHolderRepository
+import kr.ohyung.paging.model.remote.JsonPlaceHolderService
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = ""
+const val BASE_URL = "https://jsonplaceholder.typicode.com"
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 10L
 private const val READ_TIMEOUT = 10L
@@ -70,7 +73,28 @@ val retrofitModules = module {
 val viewModelModules = module {
 
     viewModel {
-        MainViewModel()
+        MainViewModel(get())
     }
 
+}
+
+val apiModules = module {
+
+    single {
+        get<Retrofit>().create(JsonPlaceHolderService::class.java)
+    }
+}
+
+val repositoryModules = module {
+
+    single {
+        JsonPlaceHolderRepository(get())
+    }
+}
+
+val adapterModules = module {
+
+    factory {
+        PostAdapter()
+    }
 }

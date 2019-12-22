@@ -4,8 +4,7 @@
 package kr.ohyung.paging
 
 import android.app.Application
-import kr.ohyung.paging.di.retrofitModules
-import kr.ohyung.paging.di.viewModelModules
+import kr.ohyung.paging.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,7 +17,7 @@ class PagingApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@PagingApplication)
-            modules(listOf(retrofitModules, viewModelModules))
+            modules(listOf(retrofitModules, viewModelModules, apiModules, repositoryModules, adapterModules))
         }
     }
 
