@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.ohyung.paging.R
-import kr.ohyung.paging.adapter.PostAdapter
+import kr.ohyung.paging.paging.PostAdapter
 import kr.ohyung.paging.base.BaseActivity
 import kr.ohyung.paging.databinding.ActivityMainBinding
 import org.koin.android.ext.android.inject
@@ -27,6 +27,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         mViewModel.postsLiveData.observe(this, Observer { list ->
             list?.let {
                 postAdapter.setPosts(it)
+            }
+        })
+
+        mViewModel.postDataSourceLiveData.observe(this, Observer { list->
+            list?.let {
+                postAdapter.submitList(it)
             }
         })
 

@@ -5,7 +5,7 @@ package kr.ohyung.paging.di
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import kr.ohyung.paging.BuildConfig
-import kr.ohyung.paging.adapter.PostAdapter
+import kr.ohyung.paging.paging.PostAdapter
 import kr.ohyung.paging.main.MainViewModel
 import kr.ohyung.paging.model.remote.JsonPlaceHolderRepository
 import kr.ohyung.paging.model.remote.JsonPlaceHolderService
