@@ -22,32 +22,21 @@ import kr.ohyung.paging.model.local.Post.Companion.DIFF_CALLBACK
 
 class PostAdapter : PagedListAdapter<Post, PostAdapter.PostViewHolder>(DIFF_CALLBACK) {
 
-    private val mPosts: ArrayList<Post> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item_post, parent, false)
         return PostViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) = holder.bindTo(mPosts[position])
-
-    fun setPosts(list: List<Post>) {
-        mPosts.clear()
-        mPosts.addAll(list)
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int){
+        val post = getItem(position)
+        holder.bindTo(post)
     }
-
-    fun addPost(post: Post) {
-        mPosts.add(post)
-        notifyDataSetChanged()
-    }
-
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val mBinding: ListItemPostBinding? = DataBindingUtil.bind(itemView)
 
-        fun bindTo(post: Post){
+        fun bindTo(post: Post?){
             mBinding?.let { it.post = post }
         }
 

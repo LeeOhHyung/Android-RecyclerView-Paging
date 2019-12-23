@@ -19,6 +19,12 @@ interface PostDao {
     @Query("SELECT * FROM posts")
     fun loadAllPosts(): Single<List<Post>>
 
+    @Query("SELECT * FROM posts LIMIT :requestLoadSize")
+    fun loadPosts(requestLoadSize: Int): List<Post>
+
+    @Query("SELECT * FROM posts WHERE posts.id > :key LIMIT :requestLoadSize")
+    fun loadPostsAfter(key: Int, requestLoadSize: Int): List<Post>
+
     @Delete
     fun deletePost(post: Post): Completable
 

@@ -30,6 +30,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
             }
         })
 
+        mViewModel.postDataSourceLiveData.observe(this, Observer { pagedList ->
+            pagedList?.let {
+                postAdapter.submitList(it)
+            }
+        })
+
     }
 
     override fun initViewFinal() {

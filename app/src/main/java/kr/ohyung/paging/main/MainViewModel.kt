@@ -20,23 +20,22 @@ import kr.ohyung.paging.paging.PostDataSourceFactory
 
 class MainViewModel(
     private val mJsonPlaceHolderRepository: JsonPlaceHolderRepository,
-    private val mPostDao: PostDao
+    private val mPostDao: PostDao,
+    private val mPostDataSourceFactory: PostDataSourceFactory
 ) : BaseViewModel() {
 
     companion object {
         private const val TAG: String = "TAG"
     }
 
-//    private val executor = Executors.newFixedThreadPool(5)
-//    private val pagedListConfig = PagedList.Config.Builder()
-//        .setEnablePlaceholders(true)
-//        .setInitialLoadSizeHint(10)
-//        .setPageSize(10)
-//        .setPrefetchDistance(5)
-//        .build()
-//
-//    private val postDataSource: DataSource.Factory<Int, Post> = PostDataSourceFactory()
-//    val postDataSourceLiveData: LiveData<PagedList<Post>> = LivePagedListBuilder(postDataSource, pagedListConfig).build()
+    private val pagedListConfig = PagedList.Config.Builder()
+        .setEnablePlaceholders(true)
+        .setInitialLoadSizeHint(10)
+        .setPageSize(5)
+        .setPrefetchDistance(2)
+        .build()
+
+    val postDataSourceLiveData: LiveData<PagedList<Post>> = LivePagedListBuilder(mPostDataSourceFactory, pagedListConfig).build()
 
     private val _postsLiveData = MutableLiveData<List<Post>>()
     val postsLiveData : LiveData<List<Post>> get() = _postsLiveData
@@ -68,7 +67,7 @@ class MainViewModel(
             .subscribe({
                 Log.d(TAG, "saved Post count : $it")
             }, {
-
+                Log.d(TAG, "CountSavedPosts Failure")
             }))
     }
 

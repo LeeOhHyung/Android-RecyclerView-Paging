@@ -12,6 +12,7 @@ import kr.ohyung.paging.model.local.PostDao
 import kr.ohyung.paging.model.local.PostDatabase
 import kr.ohyung.paging.model.remote.JsonPlaceHolderRepository
 import kr.ohyung.paging.model.remote.JsonPlaceHolderService
+import kr.ohyung.paging.paging.PostDataSourceFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -76,7 +77,7 @@ val retrofitModules = module {
 val viewModelModules = module {
 
     viewModel {
-        MainViewModel(get(), get())
+        MainViewModel(get(), get(), get() as PostDataSourceFactory)
     }
 
 }
@@ -113,5 +114,9 @@ val roomModules = module {
 
     single {
         get<PostDatabase>().postDao()
+    }
+
+    single {
+        PostDataSourceFactory(get())
     }
 }
