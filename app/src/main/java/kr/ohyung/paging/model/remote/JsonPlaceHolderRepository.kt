@@ -4,7 +4,8 @@
 package kr.ohyung.paging.model.remote
 
 import io.reactivex.Single
-import kr.ohyung.paging.model.Post
+import kr.ohyung.paging.model.local.Post
+import kr.ohyung.paging.model.local.PostDatabase
 
 class JsonPlaceHolderRepository(
     private val mRemoteService: JsonPlaceHolderService

@@ -1,8 +1,7 @@
 package kr.ohyung.paging.paging
 
 import androidx.paging.ItemKeyedDataSource
-import kr.ohyung.paging.model.Post
-import kr.ohyung.paging.model.remote.JsonPlaceHolderService
+import kr.ohyung.paging.model.local.Post
 
 /**
  * Created by Lee Oh Hyoung on 2019-12-23.
@@ -35,7 +34,7 @@ class PostDataSource : ItemKeyedDataSource<Int, Post>() {
         return  ArrayList<Post>().apply {
             for(i in 0 until size) {
                 val itemKey = key + i
-                add(Post(itemKey, itemKey, "Content of Key : $itemKey"))
+                add(Post(itemKey, "Content of Key : $itemKey"))
             }
         }
     }

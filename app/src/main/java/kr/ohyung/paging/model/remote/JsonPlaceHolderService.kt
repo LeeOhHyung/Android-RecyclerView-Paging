@@ -4,7 +4,7 @@
 package kr.ohyung.paging.model.remote
 
 import io.reactivex.Single
-import kr.ohyung.paging.model.Post
+import kr.ohyung.paging.model.local.Post
 import retrofit2.http.GET
 
 interface JsonPlaceHolderService {

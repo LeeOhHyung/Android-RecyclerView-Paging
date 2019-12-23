@@ -17,7 +17,7 @@ class PagingApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@PagingApplication)
-            modules(listOf(retrofitModules, viewModelModules, apiModules, repositoryModules, adapterModules))
+            modules(listOf(retrofitModules, viewModelModules, apiModules, repositoryModules, adapterModules, roomModules))
         }
     }
 

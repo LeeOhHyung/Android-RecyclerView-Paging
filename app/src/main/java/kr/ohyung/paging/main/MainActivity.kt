@@ -26,13 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
         mViewModel.postsLiveData.observe(this, Observer { list ->
             list?.let {
-                postAdapter.setPosts(it)
-            }
-        })
-
-        mViewModel.postDataSourceLiveData.observe(this, Observer { list->
-            list?.let {
-                postAdapter.submitList(it)
+                mViewModel.insertRoomPosts(it)
             }
         })
 

@@ -3,10 +3,13 @@
  */
 package kr.ohyung.paging.di
 
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import kr.ohyung.paging.BuildConfig
 import kr.ohyung.paging.paging.PostAdapter
 import kr.ohyung.paging.main.MainViewModel
+import kr.ohyung.paging.model.local.PostDao
+import kr.ohyung.paging.model.local.PostDatabase
 import kr.ohyung.paging.model.remote.JsonPlaceHolderRepository
 import kr.ohyung.paging.model.remote.JsonPlaceHolderService
 import okhttp3.Cache
@@ -73,7 +76,7 @@ val retrofitModules = module {
 val viewModelModules = module {
 
     viewModel {
-        MainViewModel(get())
+        MainViewModel(get(), get())
     }
 
 }
@@ -96,5 +99,19 @@ val adapterModules = module {
 
     factory {
         PostAdapter()
+    }
+}
+
+val roomModules = module {
+
+    single {
+        Room.databaseBuilder(get(), PostDatabase::class.java, "post_db")
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
+    }
+
+    single {
+        get<PostDatabase>().postDao()
     }
 }

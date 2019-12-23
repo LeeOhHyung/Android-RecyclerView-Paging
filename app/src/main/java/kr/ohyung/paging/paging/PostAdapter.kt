@@ -11,8 +11,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kr.ohyung.paging.R
 import kr.ohyung.paging.databinding.ListItemPostBinding
-import kr.ohyung.paging.model.Post
-import kr.ohyung.paging.model.Post.Companion.DIFF_CALLBACK
+import kr.ohyung.paging.model.local.Post
+import kr.ohyung.paging.model.local.Post.Companion.DIFF_CALLBACK
 
 /**
  *  DataSource : https://developer.android.com/reference/android/arch/paging/DataSource

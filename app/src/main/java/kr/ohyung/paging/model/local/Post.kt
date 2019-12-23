@@ -1,18 +1,21 @@
 /*
  * Created by Lee Oh Hyoung on 2019-12-22 .. 
  */
-package kr.ohyung.paging.model
+package kr.ohyung.paging.model.local
 
 import androidx.recyclerview.widget.DiffUtil
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
  * API : https://jsonplaceholder.typicode.com/posts
  */
 
-data class Post(@SerializedName("userId") val userId: Int,
-                @SerializedName("id") val id: Int,
-                @SerializedName("title") val title: String) {
+@Entity(tableName = "posts")
+data class Post(@PrimaryKey(autoGenerate = true)
+           @SerializedName("id") val id: Int,
+           @SerializedName("title") val title: String) {
 
     companion object {
         // DiffUtil을 통해 비교 후, 변경된 값이 변한 아이템들만 변경합니다.

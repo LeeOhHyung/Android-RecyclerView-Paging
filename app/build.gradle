@@ -40,6 +40,7 @@ ext {
     okhttpVersion = '3.14.1'
     koin_version = '2.0.1'
     retrofitVersion = '2.5.0'
+    room_version = "2.2.3"
 }
 
 dependencies {
@@ -56,6 +57,11 @@ dependencies {
     // Paging
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation "androidx.paging:paging-rxjava2:$paging_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.13'
