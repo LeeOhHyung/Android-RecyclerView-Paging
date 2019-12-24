@@ -22,3 +22,18 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-x86-android-29
     - sys-img-armeabi-v7a-android-17
+
+before_install:
+    - chmod +x gradlew
+    - chmod +rx app 
+skip_cleanup: true
+script: 
+  - "sh script/build.sh"
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: "sh script/deploy.sh"
+  on:
+    branch:
+      - dev
+      - master
