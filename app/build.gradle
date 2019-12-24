@@ -41,6 +41,7 @@ ext {
     koin_version = '2.0.1'
     retrofitVersion = '2.5.0'
     room_version = "2.2.3"
+    lifecycle_version = '2.1.0'
 }
 
 dependencies {
@@ -82,10 +83,13 @@ dependencies {
     // Koin For Androidx
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    implementation "org.koin:koin-androidx-ext:$koin_version"
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-core-ext:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
+
+    // Core Testing
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
