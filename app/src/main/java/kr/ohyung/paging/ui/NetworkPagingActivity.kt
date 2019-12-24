@@ -25,8 +25,13 @@ class NetworkPagingActivity : BaseActivity<ActivityNetworkPagingBinding, Network
     }
 
     override fun initDataBinding() {
+
+
+
     }
 
     override fun initViewFinal() {
+
+        mViewModel.loadStackOverFlowOwners()
     }
 }

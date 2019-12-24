@@ -23,14 +23,14 @@ class RoomPagingViewModel(
 ) : BaseViewModel() {
 
     companion object {
-        private const val TAG: String = "TAG"
+        private const val TAG: String = "RoomPagingViewModel"
     }
 
     private val pagedListConfig = PagedList.Config.Builder()
         .setEnablePlaceholders(true)
         .setInitialLoadSizeHint(10)
-        .setPageSize(5)
-        .setPrefetchDistance(2)
+        .setPageSize(10)
+        .setPrefetchDistance(1)
         .build()
 
     val postDataSourceLiveData: LiveData<PagedList<Post>> = LivePagedListBuilder(mPostDataSourceFactory, pagedListConfig).build()

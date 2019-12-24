@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import kr.ohyung.paging.BuildConfig
 import kr.ohyung.paging.adapter.OwnerAdapter
+import kr.ohyung.paging.adapter.OwnerDataSourceFactory
 import kr.ohyung.paging.adapter.PostAdapter
 import kr.ohyung.paging.ui.RoomPagingViewModel
 import kr.ohyung.paging.model.local.PostDatabase
@@ -14,6 +15,7 @@ import kr.ohyung.paging.model.JsonPlaceHolderRepository
 import kr.ohyung.paging.model.JsonPlaceHolderService
 import kr.ohyung.paging.model.StackOverFlowService
 import kr.ohyung.paging.adapter.PostDataSourceFactory
+import kr.ohyung.paging.model.StackOverFlowRepository
 import kr.ohyung.paging.ui.NetworkPagingViewModel
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -21,13 +23,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "https://jsonplaceholder.typicode.com"
-const val STACK_OVER_FLOW_URL = "https://api.stackexchange.com/2.2"
+const val JSON_PLACE_HOLDER_URL = "https://jsonplaceholder.typicode.com"
+const val STACK_OVER_FLOW_URL = "https://api.stackexchange.com"
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 10L
 private const val READ_TIMEOUT = 10L
@@ -84,7 +87,7 @@ val viewModelModules = module {
     }
 
     viewModel {
-        NetworkPagingViewModel()
+        NetworkPagingViewModel(get())
     }
 
 }
@@ -104,6 +107,10 @@ val repositoryModules = module {
 
     single {
         JsonPlaceHolderRepository(get())
+    }
+
+    single {
+        StackOverFlowRepository(get())
     }
 }
 
@@ -134,5 +141,9 @@ val roomModules = module {
 
     single {
         PostDataSourceFactory(get())
+    }
+
+    single {
+        OwnerDataSourceFactory(get())
     }
 }
