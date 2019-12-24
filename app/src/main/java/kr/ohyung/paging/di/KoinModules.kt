@@ -6,13 +6,15 @@ package kr.ohyung.paging.di
 import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import kr.ohyung.paging.BuildConfig
-import kr.ohyung.paging.paging.PostAdapter
-import kr.ohyung.paging.main.MainViewModel
-import kr.ohyung.paging.model.local.PostDao
+import kr.ohyung.paging.adapter.OwnerAdapter
+import kr.ohyung.paging.adapter.PostAdapter
+import kr.ohyung.paging.ui.RoomPagingViewModel
 import kr.ohyung.paging.model.local.PostDatabase
-import kr.ohyung.paging.model.remote.JsonPlaceHolderRepository
-import kr.ohyung.paging.model.remote.JsonPlaceHolderService
-import kr.ohyung.paging.paging.PostDataSourceFactory
+import kr.ohyung.paging.model.JsonPlaceHolderRepository
+import kr.ohyung.paging.model.JsonPlaceHolderService
+import kr.ohyung.paging.model.StackOverFlowService
+import kr.ohyung.paging.adapter.PostDataSourceFactory
+import kr.ohyung.paging.ui.NetworkPagingViewModel
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "https://jsonplaceholder.typicode.com"
+const val STACK_OVER_FLOW_URL = "https://api.stackexchange.com/2.2"
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 10L
 private const val READ_TIMEOUT = 10L
@@ -38,7 +41,7 @@ val retrofitModules = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(STACK_OVER_FLOW_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
@@ -77,7 +80,11 @@ val retrofitModules = module {
 val viewModelModules = module {
 
     viewModel {
-        MainViewModel(get(), get(), get() as PostDataSourceFactory)
+        RoomPagingViewModel(get(), get(), get() as PostDataSourceFactory)
+    }
+
+    viewModel {
+        NetworkPagingViewModel()
     }
 
 }
@@ -86,6 +93,10 @@ val apiModules = module {
 
     single {
         get<Retrofit>().create(JsonPlaceHolderService::class.java)
+    }
+
+    single {
+        get<Retrofit>().create(StackOverFlowService::class.java)
     }
 }
 
@@ -101,6 +112,10 @@ val adapterModules = module {
     factory {
         PostAdapter()
     }
+
+    factory {
+        OwnerAdapter()
+    }
 }
 
 val roomModules = module {
@@ -115,6 +130,7 @@ val roomModules = module {
     single {
         get<PostDatabase>().postDao()
     }
+
 
     single {
         PostDataSourceFactory(get())

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_room_paging"
+        android:title="Room"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_network_paging"
+        android:title="Network"
+        app:showAsAction="never"/>
+
+</menu>

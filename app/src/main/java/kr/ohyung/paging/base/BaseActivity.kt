@@ -3,10 +3,16 @@
  */
 package kr.ohyung.paging.base
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import kr.ohyung.paging.R
+import kr.ohyung.paging.ui.NetworkPagingActivity
+import kr.ohyung.paging.ui.RoomPagingActivity
 
 abstract class BaseActivity<T: ViewDataBinding, VM : BaseViewModel>(private val resourceId: Int) : AppCompatActivity() {
 
@@ -30,6 +36,26 @@ abstract class BaseActivity<T: ViewDataBinding, VM : BaseViewModel>(private val 
         initDataBinding()
         initViewFinal()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_room_paging -> {
+                startActivity(Intent(applicationContext, RoomPagingActivity::class.java))
+                return true
+            }
+            R.id.menu_network_paging -> {
+                startActivity(Intent(applicationContext, NetworkPagingActivity::class.java))
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }
