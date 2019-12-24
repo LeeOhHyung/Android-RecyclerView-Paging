@@ -36,7 +36,7 @@ private const val CACHE_SIZE = 10L * 1024 * 1024
 val retrofitModules = module {
 
     single {
-        Retrofit.Builder()
+        Retrofit.Builder() 
             .baseUrl(STACK_OVER_FLOW_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
